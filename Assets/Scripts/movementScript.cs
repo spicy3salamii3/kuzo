@@ -20,5 +20,28 @@ public class movementScript : NetworkBehaviour
     void Update()
     {
         HandleMovement();
+
+        //checks if client presses x and then sends hola back to the server
+
+        if (isLocalPlayer && Input.GetKeyDown(KeyCode.X))
+        {
+            Debug.Log("CLIENT: sending hola (input) to server");
+            hola();
+        }
+
+    }
+
+    public override void OnStartServer()
+    {
+        Debug.Log("SERVER: player has spawned");
+        base.OnStartServer();
+    }
+
+    //server
+
+    [Command]
+    void hola()
+    {
+        Debug.Log("SERVER: receieved hola (input) from client");
     }
 }
